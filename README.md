@@ -3,7 +3,7 @@ Copyright Ubisoft(c) 2026
 
 This GitHub repository hosts the Multi4D benchmark, a new 4D facial performance benchmark on range of motion
 based on the Multiface dataset. Multi4D is part of our work FaceSnap: Real-Time Personalized Lightstage Facial Performance Capture.
-For more details, see our [Project Page](https://ubisoft-laforge.github.io/character/facesnap/) and [Paper](https://arxiv.org/abs/2608.31033).
+For more details, see our [Project Page](https://ubisoft-laforge.github.io/character/facesnap/) and [Arxiv](https://arxiv.org/abs/2608.31033).
 
 ## Contents
 1. [Data details](#data-details)
