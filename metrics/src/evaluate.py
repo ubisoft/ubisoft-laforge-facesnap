@@ -4,13 +4,14 @@ Needs a local clone of TEMPEH (https://github.com/TimoBolkart/TEMPEH) --
 see README.md -- pointed at via --tempeh-path or the TEMPEH_PATH env var.
 
 Run with no arguments (plus --tempeh-path) to evaluate the bundled demo
-frame (Subject8870559, Frame044172, Topo4D)::
+frame (Subject8870559, Frame044172)::
 
     python evaluate.py --tempeh-path /path/to/TEMPEH --out ./demo_out
 
-Writes ``scores.json`` and a comparison figure ``<Frame>.png``.  On the demo
-frame the run also checks itself against a stored reference value; see
-``REFERENCE`` below.
+Writes ``scores.json`` and a comparison figure ``<Frame>.png``.  The bundled
+demo mesh is a copy of the ground-truth scan itself (see demo_data/README.md)
+-- it's a smoke test for the pipeline, not a method evaluation, so the
+near-zero error it reports is expected and not meaningful.
 
 To evaluate your own frame, give it the four things the metric needs -- a scan,
 that scan's transform to go to a known canonical space , your mesh, and your mesh's unit scale::
@@ -43,24 +44,21 @@ sys.path.insert(0, osp.dirname(osp.abspath(__file__)))
 from facesnap_p2s import PointToSurfaceLoss, load_obj, load_scan_and_sample  # noqa: E402
 from facesnap_p2s.rendering import create_multi_method_figure                # noqa: E402
 
-# --- bundled demo: Subject8870559 / ROM_1 / Frame044172 vs Topo4D ------------
+# --- bundled demo: Subject8870559 / ROM_1 / Frame044172 ---------------------
 # Everything below ships in demo_data. See demo_data/README.md for what each file is.
 _HERE = osp.dirname(osp.abspath(__file__))
 _DEMO = osp.join(_HERE, 'demo_data')
 
 DEMO_SCAN = osp.join(_DEMO, 'Frame044172_scan.ply')
 DEMO_TRANSFORM = osp.join(_DEMO, 'Frame044172_scan_transform.json')
-DEMO_MESH = osp.join(_DEMO, 'Frame044172_topo4d_face.obj')
+DEMO_MESH = osp.join(_DEMO, 'Frame044172_duplicate.obj')
 
-DEMO_MESH_SCALE = 0.01860523201775983   # Topo4D's unit scale for this subject
+DEMO_MESH_SCALE = 1.0   # dummy mesh is a copy of the raw scan -- already in raw units
 DEMO_CLIP_BBOX = [-22, 15, -17, 6.5, 4, 13]   # Subject8870559's face region
 
-# Note: this script computes the score on the demo mesh and is not
-# representative of a method's accuracy over an entire animation sequence.
-# The results reported in the paper are aggregated across all frames.
-REFERENCE = {'mean': 0.05666951835155487,
-             'median': 0.040984369814395905,
-             'std': 0.0560341440141201}
+# Note: the dummy mesh is a copy of the ground-truth scan, so the error it
+# reports is near-zero by construction. It's here to exercise the pipeline
+# end to end, not to represent any method's accuracy.
 
 
 def frame_name(scan_path):
@@ -200,7 +198,7 @@ def build_parser():
     g.add_argument('--clip-bbox', type=float, nargs=6, default=DEMO_CLIP_BBOX,
                    metavar=('X0', 'X1', 'Y0', 'Y1', 'Z0', 'Z1'),
                    help="the subject's face region, in canonical space")
-    g.add_argument('--method-name', default='Topo4D',
+    g.add_argument('--method-name', default='Dummy',
                    help='label for the figure and scores.json')
 
     g = p.add_argument_group('metric')

@@ -1,11 +1,11 @@
 # Demo Data
 
-This directory contains one sample frame from **Subject8870559 / ROM_1 / Frame044172**, along with its corresponding Topo4D registration, to demonstrate the evaluation pipeline without requiring access to the full dataset.
+This directory contains one sample frame from **Subject8870559 / Frame044172**, to demonstrate the evaluation pipeline without requiring access to the full dataset.
 
 Run the evaluation from the parent directory:
 
 ```bash
-python evaluate.py --out ./demo_out
+python evaluate.py --tempeh-path /path/to/TEMPEH --out ./demo_out
 ```
 
 ## Files
@@ -14,12 +14,14 @@ python evaluate.py --out ./demo_out
 |---|---|
 | `Frame044172_scan.ply` | Ground-truth photogrammetry scan |
 | `Frame044172_scan_transform.json` | Raw-to-canonical coordinate transformation |
-| `Frame044172_topo4d_face.obj` | Registered mesh produced by Topo4D |
+| `Frame044172_duplicate.obj` | A plain OBJ copy of the scan's own mesh, standing in for a method's registered mesh |
+
+`Frame044172_duplicate.obj` is not a real method's output -- it's the scan's own vertices/faces dumped straight to OBJ, used only so the demo can exercise the full pipeline (load, sample, clip, transform, P2S query, render). Scoring it against the scan it was copied from gives a near-zero error by construction -- see **Evaluation Results** below.
 
 The demo uses the following default parameters:
 
 ```bash
---mesh-scale 0.01860523201775983
+--mesh-scale 1.0
 --clip-bbox -22 15 -17 6.5 4 13
 ```
 
@@ -49,6 +51,6 @@ See the parent `README.md` for further details.
 
 ## Evaluation Results
 
-**The demo frame is intended only to verify the evaluation pipeline and is not representative of the method's overall performance.**
+**The demo frame is intended only to verify the evaluation pipeline runs end to end -- it is not a method evaluation.** Because `Frame044172_duplicate.obj` is a copy of the ground-truth scan, the reported error is near-zero (floating-point noise) by construction. A near-zero score here only confirms the pipeline ran correctly; it says nothing about any method's accuracy.
 
-The per-subject results reported in the paper are obtained by averaging per-frame scores across all evaluated frames of each subject. The provided demo frame should not be used independently to report or compare method accuracy.
+The per-subject results reported in the paper are obtained by averaging per-frame scores, from real registered meshes, across all evaluated frames of each subject. The provided demo frame should not be used independently to report or compare method accuracy.

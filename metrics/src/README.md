@@ -88,7 +88,7 @@ python evaluate.py \
     --tempeh-path /path/to/TEMPEH \
     --scan       demo_data/Frame044172_scan.ply \
     --transform  demo_data/Frame044172_scan_transform.json \
-    --mesh       my_method/Frame044172.obj \
+    --mesh       my_method/Frame044172_duplicate.obj \
     --mesh-scale 1.0 \
     --clip-bbox  -22 15 -17 6.5 4 13 \
     --method-name MyMethod \
@@ -143,8 +143,10 @@ directly: `BenchmarkScan(scan_path, transform=None)` stays in raw throughout.
 ## Demo data
 
 `demo_data/` holds one complete frame — **Subject8870559 / ROM_1 /
-Frame044172**, scored against Topo4D — so the install can be verified offline.
-See [`demo_data/README.md`](demo_data/README.md) for the files and the transform
+Frame044172** — scored against a placeholder duplicate of the scan itself, so
+the install can be verified offline without bundling a third party's
+registered mesh. The near-zero score this produces is expected; see
+[`demo_data/README.md`](demo_data/README.md) for the files and the transform
 values.
 
 
