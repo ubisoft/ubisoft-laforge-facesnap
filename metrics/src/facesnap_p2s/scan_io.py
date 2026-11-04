@@ -9,8 +9,8 @@ Readers for everything the metric needs, on numpy alone:
 
 Two conventions here are load-bearing:
 
-* **Quad triangulation.** A quad ``[a, b, c, d]`` becomes ``[a, b, c]`` and
-  ``[c, d, a]``.  Topo4D's ``face.obj`` is a quad mesh.
+* **Quad triangulation.** If your registered mesh is a quad mesh, each quad
+  ``[a, b, c, d]`` becomes ``[a, b, c]`` and ``[c, d, a]``.
 * **PLY axis convention.** The released scans are Blender Z-up while the scan
   transform is in the capture rig's Y-up frame.  See :func:`ply_axes_to_raw`.
 """

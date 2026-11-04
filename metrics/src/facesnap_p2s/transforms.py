@@ -2,8 +2,8 @@
 
 Frames
 ------
-raw      : the scan's native capture coordinate system.  Meshes authored in
-           this frame (Topo4D, FLAME) need only a per-method unit divisor to
+raw      : the scan's native capture coordinate system.  Meshes from other methods
+           may need only a per-method unit divisor to
            land here, which is what ``--mesh-scale`` is.
 aligned  : raw scaled, then rigidly posed into the canonical frontal frame::
 
