@@ -58,7 +58,7 @@ This repo has two independent, lightweight toolkits — install only what you ne
 
 ### Data download
 
-Coming soon.
+Data upload in progress, coming soon. For information, contact laforge@ubisoft.com.
 
 ## Visualization and rendering
 
